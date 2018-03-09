@@ -5,14 +5,23 @@ public class Wander : MonoBehaviour{
     public float moveSpeed; 
     public Transform target;
 
+   
     // public int damage;
 
     // public GameObject pcHealth;
+int counting(int num1, int num2){
+    int total;
+
+    total = num1 + num2;
+    
+    return total;
+    
+}
+
 
 void Wandering(){
     //  print("Wolf is Wandering!");
-
-	// makes the animal wander
+    // makes the animal wander
     transform.Translate(Vector3.forward*moveSpeed*Time.deltaTime);
     int randomNum = Random.Range(0,360);
 	//Projects Ray in front of animal
