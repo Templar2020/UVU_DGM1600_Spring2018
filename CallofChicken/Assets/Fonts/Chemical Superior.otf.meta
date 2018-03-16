@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 096aa35287d06c24e8b5c9029d1ae9b8
+timeCreated: 1521159508
+licenseType: Pro
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Chemical Superior
+  fontNames:
+  - Chemical Superior
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
