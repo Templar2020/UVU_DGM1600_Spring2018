@@ -33,9 +33,11 @@ public class NavWolfAI : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
+		distance = Vector3.Distance(player.position, transform.position);
+		
 		// Alert
 		if(distance < alertDist && distance > attackDist){
+			print("Wolf sees player");
 			state.SetBool("isFollowing",true);
 			state.SetBool("isWandering",false);
 			state.SetBool("isAttacking",false);
@@ -43,19 +45,21 @@ public class NavWolfAI : MonoBehaviour {
 		}
 		//Attacking
 		else if(distance <=  alertDist){
-
+			print("Wolf is following!");
 			direction = player.position - transform.position;
 			direction.y = 0;
 
 			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),0.09f*Time.deltaTime);
 
-			transform.Translate(Vector3.forward*speed*Time.deltaTime);
+			// transform.Translate(Vector3.forward*speed*Time.deltaTime);
+			transform.Translate(0,0,speed*Time.deltaTime);
 
 			state.SetBool("isFollowing",true);
 			state.SetBool("isAttacking",false);
 			state.SetBool("isWandering",false);
 
 			if(direction.magnitude <= attackDist){
+				print("wolf is attacking!");
 				state.SetBool("isFollowing",false);
 				state.SetBool("isAttacking",true);
 				state.SetBool("isWandering",false);
