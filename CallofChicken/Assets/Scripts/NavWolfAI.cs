@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class NavWolfAI : MonoBehaviour {
 
 	// Public 
 	public Transform player;
 	public float speed;
+	public int damage;
 	// Wander 
 	public float wanderRadius;
     public float wanderTimer;
@@ -41,7 +43,9 @@ public class NavWolfAI : MonoBehaviour {
 			state.SetBool("isFollowing",true);
 			state.SetBool("isWandering",false);
 			state.SetBool("isAttacking",false);
-
+			speed = speed + 2;
+			transform.LookAt(player);
+			transform.Translate(Vector3.forward*speed*Time.deltaTime);
 		}
 		//Attacking
 		else if(distance <=  alertDist){
@@ -49,20 +53,32 @@ public class NavWolfAI : MonoBehaviour {
 			direction = player.position - transform.position;
 			direction.y = 0;
 
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),0.09f*Time.deltaTime);
+			//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction),0.09f*Time.deltaTime);
 
-			// transform.Translate(Vector3.forward*speed*Time.deltaTime);
-			transform.Translate(0,0,speed*Time.deltaTime);
+			//transform.Translate(Vector3.forward*speed*Time.deltaTime);
+			//transform.Translate(0,0,speed*Time.deltaTime);
+			
 
-			state.SetBool("isFollowing",true);
-			state.SetBool("isAttacking",false);
+			state.SetBool("isFollowing",false);
+			state.SetBool("isAttacking",true);
 			state.SetBool("isWandering",false);
+			
+			speed = speed - 10;
+			
+			transform.LookAt(player);
+			transform.Translate(Vector3.forward*speed*Time.deltaTime);
 
 			if(direction.magnitude <= attackDist){
 				print("wolf is attacking!");
 				state.SetBool("isFollowing",false);
 				state.SetBool("isAttacking",true);
 				state.SetBool("isWandering",false);
+				var hit = player.gameObject;
+				var health = hit.GetComponent<playerHealth>();
+		
+				if(health != null){
+				health.TakeDamage(damage);
+				}	
 			}
 		}
 		
